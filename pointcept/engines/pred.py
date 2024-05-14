@@ -204,131 +204,7 @@ class SemSegTester(TesterBase):
                     )
                 pred = pred.max(1)[1].data.cpu().numpy()
                 np.save(pred_save_path, pred)
-            if "origin_segment" in data_dict.keys():
-                assert "inverse" in data_dict.keys()
-                pred = pred[data_dict["inverse"]]
-                segment = data_dict["origin_segment"]
-            intersection, union, target = intersection_and_union(
-                pred, segment, self.cfg.data.num_classes, self.cfg.data.ignore_index
-            )
-            intersection_meter.update(intersection)
-            union_meter.update(union)
-            target_meter.update(target)
-            record[data_name] = dict(
-                intersection=intersection, union=union, target=target
-            )
-
-            mask = union != 0
-            iou_class = intersection / (union + 1e-10)
-            iou = np.mean(iou_class[mask])
-            acc = sum(intersection) / (sum(target) + 1e-10)
-
-            m_iou = np.mean(intersection_meter.sum / (union_meter.sum + 1e-10))
-            m_acc = np.mean(intersection_meter.sum / (target_meter.sum + 1e-10))
-
-            batch_time.update(time.time() - end)
-            logger.info(
-                "Test: {} [{}/{}]-{} "
-                "Batch {batch_time.val:.3f} ({batch_time.avg:.3f}) "
-                "Accuracy {acc:.4f} ({m_acc:.4f}) "
-                "mIoU {iou:.4f} ({m_iou:.4f})".format(
-                    data_name,
-                    idx + 1,
-                    len(self.test_loader),
-                    segment.size,
-                    batch_time=batch_time,
-                    acc=acc,
-                    m_acc=m_acc,
-                    iou=iou,
-                    m_iou=m_iou,
-                )
-            )
-            if (
-                self.cfg.data.test.type == "ScanNetDataset"
-                or self.cfg.data.test.type == "ScanNet200Dataset"
-            ):
-                np.savetxt(
-                    os.path.join(save_path, "submit", "{}.txt".format(data_name)),
-                    self.test_loader.dataset.class2id[pred].reshape([-1, 1]),
-                    fmt="%d",
-                )
-            elif self.cfg.data.test.type == "SemanticKITTIDataset":
-                # 00_000000 -> 00, 000000
-                sequence_name, frame_name = data_name.split("_")
-                os.makedirs(
-                    os.path.join(
-                        save_path, "submit", "sequences", sequence_name, "predictions"
-                    ),
-                    exist_ok=True,
-                )
-                pred = pred.astype(np.uint32)
-                pred = np.vectorize(
-                    self.test_loader.dataset.learning_map_inv.__getitem__
-                )(pred).astype(np.uint32)
-                pred.tofile(
-                    os.path.join(
-                        save_path,
-                        "submit",
-                        "sequences",
-                        sequence_name,
-                        "predictions",
-                        f"{frame_name}.label",
-                    )
-                )
-            elif self.cfg.data.test.type == "NuScenesDataset":
-                np.array(pred + 1).astype(np.uint8).tofile(
-                    os.path.join(
-                        save_path,
-                        "submit",
-                        "lidarseg",
-                        "test",
-                        "{}_lidarseg.bin".format(data_name),
-                    )
-                )
-
-        logger.info("Syncing ...")
-        comm.synchronize()
-        record_sync = comm.gather(record, dst=0)
-
-        if comm.is_main_process():
-            record = {}
-            for _ in range(len(record_sync)):
-                r = record_sync.pop()
-                record.update(r)
-                del r
-            intersection = np.sum(
-                [meters["intersection"] for _, meters in record.items()], axis=0
-            )
-            union = np.sum([meters["union"] for _, meters in record.items()], axis=0)
-            target = np.sum([meters["target"] for _, meters in record.items()], axis=0)
-
-            if self.cfg.data.test.type == "S3DISDataset":
-                torch.save(
-                    dict(intersection=intersection, union=union, target=target),
-                    os.path.join(save_path, f"{self.test_loader.dataset.split}.pth"),
-                )
-
-            iou_class = intersection / (union + 1e-10)
-            accuracy_class = intersection / (target + 1e-10)
-            mIoU = np.mean(iou_class)
-            mAcc = np.mean(accuracy_class)
-            allAcc = np.sum(intersection) / (np.sum(target) + 1e-10)
-
-            logger.info(
-                "Val result: mIoU/mAcc/allAcc {:.4f}/{:.4f}/{:.4f}".format(
-                    mIoU, mAcc, allAcc
-                )
-            )
-            for i in range(self.cfg.data.num_classes):
-                logger.info(
-                    "Class_{idx} - {name} Result: iou/accuracy {iou:.4f}/{accuracy:.4f}".format(
-                        idx=i,
-                        name=self.cfg.data.names[i],
-                        iou=iou_class[i],
-                        accuracy=accuracy_class[i],
-                    )
-                )
-            logger.info("<<<<<<<<<<<<<<<<< End Evaluation <<<<<<<<<<<<<<<<<")
+            logger.info("<<<<<<<<<<<<<<<<< End Prediction <<<<<<<<<<<<<<<<<")
 
     @staticmethod
     def collate_fn(batch):
@@ -402,7 +278,7 @@ class ClsTester(TesterBase):
                 "Class_{idx} - {name} Result: iou/accuracy {iou:.4f}/{accuracy:.4f}".format(
                     idx=i,
                     name=self.cfg.data.names[i],
-                    iou=iou_class,
+                    iou=iou_class[i],
                     accuracy=accuracy_class[i],
                 )
             )

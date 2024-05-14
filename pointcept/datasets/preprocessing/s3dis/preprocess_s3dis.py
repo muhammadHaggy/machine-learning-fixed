@@ -12,6 +12,7 @@ import glob
 import torch
 import numpy as np
 import multiprocessing as mp
+import shutil
 
 try:
     import open3d
@@ -164,24 +165,30 @@ def main_process():
 
     # Load room information
     print("Loading room information ...")
-    for i in range(1, 7):
+    #print(os.listdir(args.dataset_root))
+    for directory in os.listdir(args.dataset_root):
         area_info = np.loadtxt(
             os.path.join(
                 args.dataset_root,
-                "Area_{}".format(i),
-                "Area_{}_alignmentAngle.txt".format(i),
+                directory,
+                "{}_alignmentAngle.txt".format(directory),
             ),
             dtype=str,
         )
-        room_list += [
-            os.path.join("Area_{}".format(i), room_info[0]) for room_info in area_info
-        ]
-        angle_list += [int(room_info[1]) for room_info in area_info]
+        #print(area_info)
+        if isinstance(area_info[0], np.ndarray):
+            room_list += [
+                os.path.join("{}".format(directory), room_info[0]) for room_info in area_info
+            ]
+            angle_list += [int(room_info[1]) for room_info in area_info]
+        else:
+            room_list += [os.path.join("{}".format(directory), area_info[0])]
+            angle_list += [int(area_info[1])]
 
     if args.parse_normal:
         # load raw mesh file to extract normal
         print("Loading raw mesh file ...")
-        for i in range(1, 7):
+        for i in range(1, 8):
             if i != 5:
                 mesh_dir = os.path.join(
                     args.raw_root, "area_{}".format(i), "3d", "rgb.obj"
@@ -228,6 +235,19 @@ def main_process():
             repeat(args.parse_normal),
         )
     )
+    #print(sorted(os.listdir("data/s3dis")))
+    #destination_naming = int(sorted(os.listdir("data/s3dis"))[-1].split("_")[-1])
+    #print(destination_naming)
+    for folder in os.listdir(args.output_root):
+        original = f"{args.output_root}/{folder}"
+        target = f"data/s3dis/{folder}"
+        #print(target)
+        if os.path.exists(target):
+            shutil.rmtree(target)
+            shutil.move(original, target)
+        else:
+            shutil.move(original, target)
+    print("done")
 
 
 if __name__ == "__main__":

@@ -84,6 +84,9 @@ def default_argument_parser(epilog=None):
         "--num-machines", type=int, default=1, help="total number of machines"
     )
     parser.add_argument(
+        "--test_split", type=str, default="", help="dataset pred will run on"
+    )
+    parser.add_argument(
         "--machine-rank",
         type=int,
         default=0,
@@ -106,7 +109,7 @@ def default_argument_parser(epilog=None):
     return parser
 
 
-def default_config_parser(file_path, options):
+def default_config_parser(file_path, options, test_split):
     # config name protocol: dataset_name/model_name-exp_name
     if os.path.isfile(file_path):
         cfg = Config.fromfile(file_path)
@@ -121,6 +124,8 @@ def default_config_parser(file_path, options):
         cfg.seed = get_random_seed()
 
     cfg.data.train.loop = cfg.epoch // cfg.eval_epoch
+
+    cfg.data.test.split = test_split
 
     os.makedirs(os.path.join(cfg.save_path, "model"), exist_ok=True)
     if not cfg.resume:
