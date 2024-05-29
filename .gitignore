@@ -8,6 +8,8 @@ exp
 weights
 data
 log
+full
+PLY
 outputs/
 .vscode
 .idea
