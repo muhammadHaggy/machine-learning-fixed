@@ -15,9 +15,10 @@ parser.add_argument("-n", "--name", help = "NPY Prediction Path")
 args = parser.parse_args()
 
 label_path = f"npy/{args.name}.npy"
-full_ply = f"3dgs_full_PLY/{args.name}.ply"
+full_ply = f"3dgs_full_ply/{args.name}.ply"
 project_name = args.name
-dir_name = f"segment result/{project_name}"
+dir_name = f"segment_result/{project_name}"
+os.makedirs(dir_name, exist_ok=True)
 
 _label_to_color_uint8 = {
     0: [158, 218, 228],

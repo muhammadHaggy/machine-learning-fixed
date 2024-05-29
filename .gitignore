@@ -5,6 +5,9 @@ __pycache__
 **/dist/
 *.so
 exp
+npy
+3dgs_full_ply
+segment_result
 weights
 data
 log
