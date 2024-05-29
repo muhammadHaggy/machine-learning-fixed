@@ -163,7 +163,7 @@ class SemSegTester(TesterBase):
             fragment_list = data_dict.pop("fragment_list")
             segment = data_dict.pop("segment")
             data_name = data_dict.pop("name")
-            pred_save_path = os.path.join(save_path, "{}_pred.npy".format(data_name))
+            pred_save_path = os.path.join(save_path, "{}.npy".format(data_name))
             if os.path.isfile(pred_save_path):
                 logger.info(
                     "{}/{}: {}, loaded pred and label.".format(
