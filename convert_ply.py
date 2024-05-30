@@ -29,7 +29,7 @@ open3d.io.write_point_cloud(
 )
 
 os.rename(f"{root}/{args.name}.pts", f"{root}/{args.name}.txt")
-with open(f"{root}/{args.name}.pts", "r+") as f:
+with open(f"{root}/{args.name}.txt", "r+") as f:
     lines = f.readlines()
     f.seek(0)
 
