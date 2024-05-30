@@ -109,7 +109,7 @@ def default_argument_parser(epilog=None):
     return parser
 
 
-def default_config_parser(file_path, options, test_split):
+def default_config_parser(file_path, options, test_split=None):
     # config name protocol: dataset_name/model_name-exp_name
     if os.path.isfile(file_path):
         cfg = Config.fromfile(file_path)
@@ -125,7 +125,8 @@ def default_config_parser(file_path, options, test_split):
 
     cfg.data.train.loop = cfg.epoch // cfg.eval_epoch
 
-    cfg.data.test.split = test_split
+    if test_split is not None:
+        cfg.data.test.split = test_split
 
     os.makedirs(os.path.join(cfg.save_path, "model"), exist_ok=True)
     if not cfg.resume:
