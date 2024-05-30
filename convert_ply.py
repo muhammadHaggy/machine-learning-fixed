@@ -33,7 +33,7 @@ with open(f"{root}/{args.name}.txt", "r+") as f:
     lines = f.readlines()
     f.seek(0)
 
-    for line in lines:
+    for line in lines[1:]:
         parts = line.strip().split()
         modified_line = " ".join(parts) + " 0.000000 0.000000 0.000000\n"
         f.write(modified_line)
