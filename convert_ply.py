@@ -24,12 +24,21 @@ os.makedirs(f"{root}/Annotations", exist_ok=True)
 
 open3d.io.write_point_cloud(
     pointcloud=pcd,
-    filename=f"{root}/{args.name}.pcd",
-    format="xyzrgb",
+    filename=f"{root}/{args.name}.pts",
+    format="xyz",
 )
 
-os.rename(f"{root}/{args.name}.pcd", f"{root}/{args.name}.txt")
-shutil.copyfile(f"{root}/{args.name}.txt", f"{root}/Annotations/{args.name}.txt")
+os.rename(f"{root}/{args.name}.pts", f"{root}/{args.name}.txt")
+with open(f"{root}/{args.name}.pts", "r+") as f:
+    lines = f.readlines()
+    f.seek(0)
 
+    for line in lines:
+        parts = line.strip().split()
+        modified_line = " ".join(parts) + " 0.000000 0.000000 0.000000\n"
+        f.write(modified_line)
+    f.truncate()
+
+shutil.copyfile(f"{root}/{args.name}.txt", f"{root}/Annotations/{args.name}.txt")
 with open(f"{root}_alignmentAngle.txt", "a") as f:
     f.write(f"{args.name} 0")
