@@ -22,7 +22,11 @@ for line in lines:
         parts = line.split()
         if len(parts) == 6:
             x, y, z, r, g, b = parts
-            r, g, b = max(0, int(r)), max(0, int(g)), max(0, int(b))
+            r, g, b = (
+                min(max(0, int(r)), 255),
+                min(max(0, int(g)), 255),
+                min(max(0, int(b)), 255),
+            )
             corrected_lines.append(f"{x} {y} {z} {r} {g} {b}\n")
         else:
             corrected_lines.append(line)
