@@ -63,5 +63,5 @@ with open(f"{root}/{args.name}.txt", "r+") as f:
     f.truncate()
 
 shutil.copyfile(f"{root}/{args.name}.txt", f"{root}/Annotations/{args.name}.txt")
-with open(f"{root}_alignmentAngle.txt", "a") as f:
+with open(f"{root}_alignmentAngle.txt", "w") as f:
     f.write(f"{args.name} 0")
