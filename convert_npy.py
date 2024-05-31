@@ -1,7 +1,9 @@
+import argparse
+import colorsys
+import os
+
 import numpy as np
 import open3d
-import argparse
-import os
 
 
 # Initialize parser
@@ -19,33 +21,23 @@ project_name = f"{args.name}"
 dir_name = f"{args.destination}"
 os.makedirs(dir_name, exist_ok=True)
 
-# Handle class label colors
-_label_to_color_uint8 = {
-    0: [158, 218, 228],
-    1: [151, 223, 137],
-    2: [174, 198, 232],
-    3: [255, 187, 128],
-    4: [254, 127, 13],
-    5: [196, 176, 213],
-    6: [213, 39, 40],
-    7: [188, 189, 35],
-    8: [255, 152, 151],
-    9: [140, 86, 74],
-    10: [196, 156, 147],
-    11: [148, 103, 188],
-    12: [0, 0, 0],
-}
+classes_count = 12
 
-_label_to_color = dict(
-    [
-        (label, (np.array(color_uint8).astype(np.float64) / 255.0).tolist())
-        for label, color_uint8 in _label_to_color_uint8.items()
-    ]
-)
+# Handle class label colors
+colors = {
+    i: colorsys.hls_to_rgb(i * (360 / classes_count), 60, 100)
+    for i in range(classes_count)
+}
+colors[classes_count] = [255, 255, 255]
+
+classes = {
+    label: (np.array(color).astype(np.float64) / 255.0).tolist()
+    for label, color in colors.items()
+}
 
 # Load source data
 pred_labels = np.load(scene_npy)
-pred_labels_colors = np.array([_label_to_color[l] for l in pred_labels])
+pred_labels_colors = np.array([classes[l] for l in pred_labels])
 plydata = open3d.io.read_point_cloud(gaussian_ply)
 
 # Generate final point cloud
