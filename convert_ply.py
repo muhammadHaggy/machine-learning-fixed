@@ -5,17 +5,36 @@ import shutil
 
 # Initialize parser
 parser = argparse.ArgumentParser()
-
-# Adding optional argument
 parser.add_argument("-n", "--name", help="Scene name")
 parser.add_argument("-p", "--path", help="PLY source path")
 parser.add_argument("-d", "--destination", help="Destination root")
-
-# Read arguments from command line
 args = parser.parse_args()
 
-# Read point cloud from source path
+# Fix point cloud rgb values
 ply = f"{args.path}"
+with open(ply, 'r') as file:
+    lines = file.readlines()
+
+corrected_lines = []
+header_passed = False
+for line in lines:
+    if header_passed:
+        parts = line.split()
+        if len(parts) == 6:
+            x, y, z, r, g, b = parts
+            r, g, b = max(0, int(r)), max(0, int(g)), max(0, int(b))
+            corrected_lines.append(f"{x} {y} {z} {r} {g} {b}\n")
+        else:
+            corrected_lines.append(line)
+    else:
+        corrected_lines.append(line)
+        if line.strip() == "end_header":
+            header_passed = True  # Indicates that the next lines are vertex data
+
+with open(ply, 'w') as file:
+    file.writelines(corrected_lines)
+
+# Read point cloud from source path
 pcd = open3d.io.read_point_cloud(ply)
 
 # Restructure to s3dis dataset format
