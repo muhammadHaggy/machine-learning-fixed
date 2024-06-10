@@ -8,13 +8,13 @@ import open3d
 
 # Initialize parser
 parser = argparse.ArgumentParser()
-parser.add_argument("--gaussian", help="Gaussian Splatting PLY source path")
+parser.add_argument("--input", help="Input PLY source path")
 parser.add_argument("--scene", help="PTv3 NPY source path")
 parser.add_argument("--destination", help="Conversion PLY destination path")
 parser.add_argument("--name", help="NPY Prediction Path")
 args = parser.parse_args()
 
-gaussian_ply = f"{args.gaussian}"
+input_ply = f"{args.input}"
 scene_npy = f"{args.scene}"
 
 project_name = f"{args.name}"
@@ -38,11 +38,11 @@ classes = {
 # Load source data
 pred_labels = np.load(scene_npy)
 pred_labels_colors = np.array([classes[l] for l in pred_labels])
-plydata = open3d.io.read_point_cloud(gaussian_ply)
+plydata = open3d.io.read_point_cloud(input_ply)
 
 # Generate final point cloud
 pcd = open3d.geometry.PointCloud()
 pcd.points = plydata.points
 pcd.colors = open3d.utility.Vector3dVector(pred_labels_colors)
 
-open3d.io.write_point_cloud(f"{dir_name}/{project_name}.ply", pcd)
+open3d.io.write_point_cloud(f"{dir_name}/{project_name}.ply", pcd, write_ascii=True)
