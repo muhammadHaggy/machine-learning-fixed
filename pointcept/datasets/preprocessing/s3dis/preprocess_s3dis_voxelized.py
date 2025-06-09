@@ -14,8 +14,12 @@ import numpy as np
 import multiprocessing as mp
 from concurrent.futures import ProcessPoolExecutor
 from itertools import repeat
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../..")))
 
 from pointcept.datasets.transform import GridSample
+
+
 
 
 def voxelize_parser(data_path, dataset_root, output_root, voxel_size):
@@ -49,6 +53,7 @@ def main_process():
     print("Processing scenes...")
     pool = ProcessPoolExecutor(max_workers=mp.cpu_count())
     # pool = ProcessPoolExecutor(max_workers=1)
+
     _ = list(
         pool.map(
             voxelize_parser,
@@ -58,6 +63,8 @@ def main_process():
             repeat(args.voxel_size),
         )
     )
+    print(f"✅ Preprocessing selesai. File hasil disimpan di: {args.output_root}")
+
 
 
 if __name__ == "__main__":

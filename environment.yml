@@ -18,7 +18,7 @@ dependencies:
   - certifi=2024.2.2=py38h06a4308_0
   - charset-normalizer=2.0.4=pyhd3eb1b0_0
   - colorama=0.4.6=pyhd8ed1ab_0
-  - cudatoolkit=11.3.1=h2bc3f7f_2
+  - cudatoolkit=12.1=h2bc3f7f_2
   - einops=0.8.0=pyhd8ed1ab_0
   - ffmpeg=4.3=hf484d3e_0
   - filelock=3.13.4=pyhd8ed1ab_0
@@ -86,7 +86,7 @@ dependencies:
   - protobuf=3.20.3=py38h6a678d5_0
   - python=3.8.19=h955ad1f_0
   - python_abi=3.8=2_cp38
-  - pytorch=1.12.1=py3.8_cuda11.3_cudnn8.3.2_0
+  # - pytorch=1.12.1=py3.8_cuda11.3_cudnn8.3.2_0
   - pytorch-cluster=1.6.0=py38_torch_1.12.0_cu113
   - pytorch-mutex=1.0=cuda
   - pytorch-scatter=2.1.0=py38_torch_1.12.0_cu113
@@ -109,8 +109,8 @@ dependencies:
   - timm=0.9.16=pyhd8ed1ab_0
   - tk=8.6.12=h1ccaba5_0
   - tomli=2.0.1=pyhd8ed1ab_0
-  - torchaudio=0.12.1=py38_cu113
-  - torchvision=0.13.1=py38_cu113
+  # - torchaudio=0.12.1=py38_cu113
+  # - torchvision=0.13.1=py38_cu113
   - tqdm=4.66.2=pyhd8ed1ab_0
   - typing-extensions=4.9.0=py38h06a4308_1
   - typing_extensions=4.9.0=py38h06a4308_1

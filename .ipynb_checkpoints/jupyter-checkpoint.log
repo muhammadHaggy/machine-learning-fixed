@@ -1,0 +1,74 @@
+nohup: ignoring input
+[I 2025-05-15 18:15:38.083 ServerApp] jupyter_lsp | extension was successfully linked.
+[I 2025-05-15 18:15:38.088 ServerApp] jupyter_server_terminals | extension was successfully linked.
+[I 2025-05-15 18:15:38.093 ServerApp] jupyterlab | extension was successfully linked.
+[I 2025-05-15 18:15:38.097 ServerApp] notebook | extension was successfully linked.
+[I 2025-05-15 18:15:38.270 ServerApp] notebook_shim | extension was successfully linked.
+[I 2025-05-15 18:15:38.284 ServerApp] notebook_shim | extension was successfully loaded.
+[I 2025-05-15 18:15:38.285 ServerApp] jupyter_lsp | extension was successfully loaded.
+[I 2025-05-15 18:15:38.286 ServerApp] jupyter_server_terminals | extension was successfully loaded.
+[I 2025-05-15 18:15:38.288 LabApp] JupyterLab extension loaded from /home/cluster-dgxa100/llogistik/miniconda3/envs/pointcept/lib/python3.10/site-packages/jupyterlab
+[I 2025-05-15 18:15:38.288 LabApp] JupyterLab application directory is /home/cluster-dgxa100/llogistik/miniconda3/envs/pointcept/share/jupyter/lab
+[I 2025-05-15 18:15:38.288 LabApp] Extension Manager is 'pypi'.
+[I 2025-05-15 18:15:38.331 ServerApp] jupyterlab | extension was successfully loaded.
+[I 2025-05-15 18:15:38.335 ServerApp] notebook | extension was successfully loaded.
+[I 2025-05-15 18:15:38.335 ServerApp] The port 8888 is already in use, trying another port.
+[I 2025-05-15 18:15:38.336 ServerApp] Serving notebooks from local directory: /home/cluster-dgxa100/llogistik/Pointcept
+[I 2025-05-15 18:15:38.336 ServerApp] Jupyter Server 2.15.0 is running at:
+[I 2025-05-15 18:15:38.336 ServerApp] http://dgx-a100:8889/tree?token=f24cec3bd448b2693d3317524c01595eace51eac279216e4
+[I 2025-05-15 18:15:38.336 ServerApp]     http://127.0.0.1:8889/tree?token=f24cec3bd448b2693d3317524c01595eace51eac279216e4
+[I 2025-05-15 18:15:38.336 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 2025-05-15 18:15:38.338 ServerApp] 
+    
+    To access the server, open this file in a browser:
+        file:///home/cluster-dgxa100/llogistik/.local/share/jupyter/runtime/jpserver-1994218-open.html
+    Or copy and paste one of these URLs:
+        http://dgx-a100:8889/tree?token=f24cec3bd448b2693d3317524c01595eace51eac279216e4
+        http://127.0.0.1:8889/tree?token=f24cec3bd448b2693d3317524c01595eace51eac279216e4
+[I 2025-05-15 18:15:38.355 ServerApp] Skipped non-installed server(s): bash-language-server, dockerfile-language-server-nodejs, javascript-typescript-langserver, jedi-language-server, julia-language-server, pyright, python-language-server, python-lsp-server, r-languageserver, sql-language-server, texlab, typescript-language-server, unified-language-server, vscode-css-languageserver-bin, vscode-html-languageserver-bin, vscode-json-languageserver-bin, yaml-language-server
+[W 2025-05-15 18:43:41.585 ServerApp] delete /data/input/box-13.ply
+[W 2025-05-15 18:43:41.587 ServerApp] delete /data/input/box1.ply
+[I 2025-05-15 18:44:12.385 ServerApp] Uploading file to /data/input/Box9.ply
+[I 2025-05-15 18:44:14.621 ServerApp] Uploading file to /data/input/Box6.ply
+[I 2025-05-15 18:44:14.754 ServerApp] Uploading file to /data/input/Box2.ply
+[I 2025-05-15 18:44:14.761 ServerApp] Uploading file to /data/input/Box3.ply
+[I 2025-05-15 18:44:14.769 ServerApp] Uploading file to /data/input/Box7.ply
+[I 2025-05-15 18:44:14.776 ServerApp] Uploading file to /data/input/Box8.ply
+[I 2025-05-15 18:44:18.624 ServerApp] Uploading file to /data/input/Box4.ply
+[I 2025-05-15 18:44:20.501 ServerApp] Uploading file to /data/input/Box5.ply
+[I 2025-05-15 18:44:20.989 ServerApp] Uploading file to /data/input/Box10.ply
+[I 2025-05-15 18:44:21.113 ServerApp] Uploading file to /data/input/Box1.ply
+[I 2025-05-15 18:45:18.532 ServerApp] Saving file at /data/input/Box9.ply
+[I 2025-05-15 18:45:26.106 ServerApp] Saving file at /data/input/Box3.ply
+[I 2025-05-15 18:45:26.942 ServerApp] Saving file at /data/input/Box6.ply
+[I 2025-05-15 18:45:27.047 ServerApp] Saving file at /data/input/Box7.ply
+[I 2025-05-15 18:45:27.559 ServerApp] Saving file at /data/input/Box2.ply
+[I 2025-05-15 18:45:27.989 ServerApp] Saving file at /data/input/Box8.ply
+[I 2025-05-15 18:45:28.674 ServerApp] Saving file at /data/input/Box1.ply
+[I 2025-05-15 18:45:29.105 ServerApp] Saving file at /data/input/Box4.ply
+[I 2025-05-15 18:45:29.262 ServerApp] Saving file at /data/input/Box5.ply
+[I 2025-05-15 18:45:29.516 ServerApp] Saving file at /data/input/Box10.ply
+[I 2025-05-15 18:46:24.406 ServerApp] Saving file at /worker.py
+[W 2025-05-15 18:48:16.905 ServerApp] 409 PATCH /api/contents/data/input/Box3.ply?1747309696673 (10.119.105.197): File already exists: data/input/Box4.ply
+[W 2025-05-15 18:48:16.905 ServerApp] wrote error: 'File already exists: data/input/Box4.ply'
+    Traceback (most recent call last):
+      File "/home/cluster-dgxa100/llogistik/miniconda3/envs/pointcept/lib/python3.10/site-packages/tornado/web.py", line 1790, in _execute
+        result = await result
+      File "/home/cluster-dgxa100/llogistik/miniconda3/envs/pointcept/lib/python3.10/site-packages/jupyter_server/auth/decorator.py", line 73, in inner
+        return await out
+      File "/home/cluster-dgxa100/llogistik/miniconda3/envs/pointcept/lib/python3.10/site-packages/jupyter_server/services/contents/handlers.py", line 206, in patch
+        model = await ensure_async(cm.update(model, path))
+      File "/home/cluster-dgxa100/llogistik/miniconda3/envs/pointcept/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 198, in ensure_async
+        result = await obj
+      File "/home/cluster-dgxa100/llogistik/miniconda3/envs/pointcept/lib/python3.10/site-packages/jupyter_server/services/contents/manager.py", line 919, in update
+        await self.rename(path, new_path)
+      File "/home/cluster-dgxa100/llogistik/miniconda3/envs/pointcept/lib/python3.10/site-packages/jupyter_server/services/contents/manager.py", line 906, in rename
+        await self.rename_file(old_path, new_path)
+      File "/home/cluster-dgxa100/llogistik/miniconda3/envs/pointcept/lib/python3.10/site-packages/jupyter_server/services/contents/filemanager.py", line 1064, in rename_file
+        raise web.HTTPError(409, "File already exists: %s" % new_path)
+    tornado.web.HTTPError: HTTP 409: Conflict (File already exists: data/input/Box4.ply)
+[W 2025-05-15 18:48:16.907 ServerApp] 409 PATCH /api/contents/data/input/Box3.ply?1747309696673 (179f80d2d5ef4e90822ee5481c206bb8@10.119.105.197) 3.28ms referer=http://127.0.0.1:8889/tree/data/input
+[W 2025-05-15 18:49:17.183 ServerApp] delete /data/box-1-txt
+[W 2025-05-15 18:49:17.189 ServerApp] delete /data/box-13-txt
+[I 2025-05-15 18:53:27.910 ServerApp] Saving file at /worker.py
+[W 2025-05-15 18:53:42.901 ServerApp] delete /data/box-1-txt
