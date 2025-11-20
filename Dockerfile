@@ -24,7 +24,9 @@ RUN wget \
 
 # 3. Initialize Conda and Create Environment
 COPY environment.yml /tmp/environment.yml
-RUN conda env create -f /tmp/environment.yml
+RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main && \
+    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r && \
+    conda env create -f /tmp/environment.yml
 
 # IMPORTANT: Set the SHELL to use the new environment for all subsequent commands
 SHELL ["conda", "run", "-n", "pointcept-torch2.5.0-cu12.4", "/bin/bash", "-c"]
