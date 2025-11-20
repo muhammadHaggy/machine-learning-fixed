@@ -1,0 +1,7 @@
+# .dockerignore
+data/
+exp/
+output-preprocess/
+.git
+__pycache__
+*.pyc
