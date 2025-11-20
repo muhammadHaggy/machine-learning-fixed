@@ -35,6 +35,8 @@ SHELL ["conda", "run", "-n", "pointcept-torch2.5.0-cu12.4", "/bin/bash", "-c"]
 WORKDIR /app
 COPY . /app
 
+ENV TORCH_CUDA_ARCH_LIST="7.0 7.5 8.0 8.6 8.9 9.0+PTX"
+
 # 5. Install Complex Dependencies & Server Deps
 # Phase A: Custom Ops (No Build Isolation)
 RUN pip install git+https://github.com/Dao-AILab/flash-attention.git --no-build-isolation && \
