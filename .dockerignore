@@ -1,6 +1,5 @@
 # .dockerignore
 data/
-exp/
 output-preprocess/
 .git
 __pycache__
